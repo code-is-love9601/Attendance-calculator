@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Create Session | NeonAttend{% endblock %}
+
+{% block content %}
+<section class="auth-card">
+    <h1>Create a <span class="gradient">Session.</span></h1>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <label>Session Title
+            <input name="title" required placeholder="Data Structures Lecture">
+        </label>
+
+        <label>Course
+            <input name="course" placeholder="BCA Year 1">
+        </label>
+
+        <button class="btn" type="submit">Generate QR Code ↗</button>
+    </form>
+</section>
+{% endblock %}
