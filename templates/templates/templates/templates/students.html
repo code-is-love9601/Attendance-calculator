@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}Students | NeonAttend{% endblock %}
+
+{% block content %}
+<h1>Student <span class="gradient">Management.</span></h1>
+
+<section class="card">
+    <h2>Add Student</h2>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <label>Full Name
+            <input name="full_name">
+        </label>
+
+        <label>Username
+            <input name="username" required>
+        </label>
+
+        <label>Student ID
+            <input name="student_id" required>
+        </label>
+
+        <label>Course
+            <input name="course">
+        </label>
+
+        <label>Password
+            <input type="password" name="password" minlength="8" required>
+        </label>
+
+        <button class="btn" type="submit">Create Student</button>
+    </form>
+</section>
+
+<section class="card">
+    <h2>Registered Students</h2>
+    {% for profile in profiles %}
+        <p>
+            {{ profile.user.get_full_name|default:profile.user.username }}
+            — {{ profile.student_id }}
+            — {{ profile.course }}
+        </p>
+    {% empty %}
+        <p>No students registered yet.</p>
+    {% endfor %}
+</section>
+{% endblock %}
