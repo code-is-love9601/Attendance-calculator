@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}NEON ATTENDANCE PRO{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <p class="eyebrow">SMART CAMPUS ATTENDANCE</p>
+
+    <h1>Attendance,<br><span class="gradient">reimagined.</span></h1>
+
+    <p class="description">
+        Manage classroom attendance with QR sessions,
+        student accounts and a modern dashboard.
+    </p>
+
+    <a href="{% url 'login' %}" class="btn">Open Dashboard ↗</a>
+</section>
+
+<section class="features">
+    <article class="card">
+        <h2>▦ QR Sessions</h2>
+        <p>Generate a unique QR code for each class.</p>
+    </article>
+
+    <article class="card">
+        <h2>◈ Student Records</h2>
+        <p>Organize student profiles and attendance.</p>
+    </article>
+
+    <article class="card">
+        <h2>↗ Smart Dashboard</h2>
+        <p>View saved attendance records.</p>
+    </article>
+</section>
+{% endblock %}
