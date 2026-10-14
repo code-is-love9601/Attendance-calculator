@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Mark Attendance | NeonAttend{% endblock %}
+
+{% block content %}
+<section class="auth-card">
+    <h1>{{ session.title }}</h1>
+    <p>{{ session.course|default:"Class Attendance" }}</p>
+
+    {% if already_marked %}
+        <p class="success">✓ Attendance is already recorded.</p>
+    {% elif not session.is_open %}
+        <p>This session is closed.</p>
+    {% elif user.is_staff %}
+        <p>Teacher accounts cannot mark student attendance.</p>
+    {% else %}
+        <p>Signed in as {{ user.get_full_name|default:user.username }}</p>
+
+        <form method="post">
+            {% csrf_token %}
+            <button class="btn" type="submit">Confirm Attendance ✓</button>
+        </form>
+    {% endif %}
+</section>
+{% endblock %}
