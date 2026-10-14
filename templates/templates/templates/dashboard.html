@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard | NeonAttend{% endblock %}
+
+{% block content %}
+<section class="page-heading">
+    <p>YOUR WORKSPACE</p>
+    <h1>Hello, <span class="gradient">{{ user.first_name|default:user.username }}</span></h1>
+</section>
+
+{% if is_staff %}
+    <section class="stats">
+        <article class="card">
+            <p>REGISTERED STUDENTS</p>
+            <h2>{{ total_students }}</h2>
+        </article>
+        <article class="card">
+            <p>ATTENDANCE RECORDS</p>
+            <h2>{{ total_records }}</h2>
+        </article>
+        <article class="card">
+            <p>YOUR SESSIONS</p>
+            <h2>{{ sessions|length }}</h2>
+        </article>
+    </section>
+
+    <a class="btn" href="{% url 'create_session' %}">+ New Session</a>
+    <a class="btn" href="{% url 'students' %}">Manage Students</a>
+
+    <section class="card">
+        <h2>Attendance Sessions</h2>
+        {% for session in sessions %}
+            <p>
+                {{ session.title }} — {{ session.course }}
+                <a href="{% url 'session_detail' session.id %}">View QR</a>
+            </p>
+        {% empty %}
+            <p>No sessions yet. Create your first session.</p>
+        {% endfor %}
+    </section>
+{% else %}
+    <section class="card">
+        <h2>My Attendance</h2>
+        <p>Total check-ins: {{ present_count }}</p>
+        {% for record in records %}
+            <p>{{ record.session.title }} — {{ record.marked_at|date:"d M Y, H:i" }}</p>
+        {% empty %}
+            <p>No attendance records yet.</p>
+        {% endfor %}
+    </section>
+{% endif %}
+{% endblock %}
