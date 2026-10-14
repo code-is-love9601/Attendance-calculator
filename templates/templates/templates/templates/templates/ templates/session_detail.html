@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}Session QR | NeonAttend{% endblock %}
+
+{% block content %}
+<h1>{{ session.title }}</h1>
+<p>{{ session.course|default:"General Class" }}</p>
+
+<section class="card qr-card">
+    <img src="data:image/png;base64,{{ qr_data }}" alt="Attendance QR Code">
+    <h2>Scan to Check In</h2>
+    <p>Present students: {{ present_count }}</p>
+    <p><a href="{{ scan_url }}">Open attendance page</a></p>
+</section>
+
+<section class="card">
+    <h2>Present Students</h2>
+
+    {% for record in records %}
+        <p>
+            {{ record.student.get_full_name|default:record.student.username }}
+            — {{ record.marked_at|date:"d M Y, H:i" }}
+        </p>
+    {% empty %}
+        <p>Waiting for students.</p>
+    {% endfor %}
+</section>
+{% endblock %}
