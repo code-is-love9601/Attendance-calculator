@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Login | NeonAttend{% endblock %}
+
+{% block content %}
+<section class="auth-card">
+    <h1>Welcome <span class="gradient">back.</span></h1>
+    <p>Sign in to your teacher or student account.</p>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <label>Username
+            <input name="username" required autocomplete="username">
+        </label>
+
+        <label>Password
+            <input type="password" name="password" required autocomplete="current-password">
+        </label>
+
+        <button class="btn" type="submit">Sign In ↗</button>
+    </form>
+
+    <p>Student accounts must be created by a teacher.</p>
+</section>
+{% endblock %}
